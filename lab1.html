@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chesley Guo · AI & Data</title>
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --berkeley-blue: #003262;
+      --berkeley-gold: #FDB515;
+      --blue-light: #d7e7f5;
+      --gold-light: #fff1d0;
+      --blue-mid: #1a5f8a;
+      --text-dark: #0b1c2f;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #f4f9ff;
+      color: var(--text-dark);
+      line-height: 1.6;
+      padding: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ----- semantic structure ----- */
+    header, main, footer {
+      display: block;
+    }
+
+    /* header & nav */
+    header {
+      margin-bottom: 3rem;
+      padding: 1.5rem 0 1rem;
+      border-bottom: 3px solid var(--berkeley-blue);
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 120px;
+      height: 3px;
+      background: var(--berkeley-gold);
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav-name {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--berkeley-blue);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-name span {
+      background: var(--berkeley-gold);
+      color: var(--berkeley-blue);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.25rem 0.8rem;
+      border-radius: 40px;
+      letter-spacing: 0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: var(--berkeley-blue);
+      padding: 0.3rem 0;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover {
+      border-bottom-color: var(--berkeley-gold);
+      color: #002a4e;
+    }
+
+    /* main sections */
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 2.8rem;
+      margin-bottom: 2.5rem;
+    }
+
+    section {
+      scroll-margin-top: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.9rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--berkeley-blue);
+      display: inline-block;
+      border-bottom: 4px solid var(--berkeley-gold);
+      padding-bottom: 0.2rem;
+    }
+
+    /* ---------- ABOUT SECTION ---------- */
+    .about-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+      align-items: flex-start;
+    }
+
+    .about-avatar {
+      flex: 0 0 180px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .about-avatar img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 12px 28px rgba(0, 50, 98, 0.18);
+      border: 4px solid var(--berkeley-gold);
+      background: #ffffff;
+      transition: transform 0.3s ease, border-color 0.3s;
+    }
+
+    .about-avatar img:hover {
+      transform: scale(1.02);
+      border-color: var(--berkeley-blue);
+    }
+
+    .about-text {
+      flex: 1 1 320px;
+      background: #ffffff;
+      padding: 1.6rem 2rem;
+      border-radius: 24px;
+      box-shadow: 0 6px 18px rgba(0, 50, 98, 0.06);
+      border: 1px solid var(--blue-light);
+      border-left: 6px solid var(--berkeley-gold);
+    }
+
+    .about-text p {
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+      color: #1e3a5f;
+    }
+
+    .highlight-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      margin-top: 1rem;
+      list-style: none;
+    }
+
+    .highlight-list li {
+      background: var(--gold-light);
+      color: var(--berkeley-blue);
+      padding: 0.25rem 1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: 1px solid #f5d98c;
+    }
+
+    /* ---------- EDUCATION SECTION ---------- */
+    .edu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .edu-item {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 5px 18px rgba(0, 50, 98, 0.04);
+      border: 1px solid var(--blue-light);
+      border-left: 6px solid var(--berkeley-gold);
+      transition: box-shadow 0.2s, border-left-color 0.2s;
+    }
+
+    .edu-item:hover {
+      box-shadow: 0 10px 24px rgba(0, 50, 98, 0.10);
+      border-left-color: var(--berkeley-blue);
+    }
+
+    .edu-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 0.4rem;
+    }
+
+    .edu-school {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--berkeley-blue);
+      letter-spacing: -0.01em;
+    }
+
+    .edu-date {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--berkeley-blue);
+      background: var(--gold-light);
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      border: 1px solid #f0d580;
+    }
+
+    .edu-degree {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--blue-mid);
+      margin-bottom: 0.2rem;
+    }
+
+    .edu-detail {
+      font-size: 0.95rem;
+      color: #3d5f82;
+    }
+
+    /* ---------- WORK EXPERIENCE SECTION ---------- */
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .exp-item {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 5px 18px rgba(0, 50, 98, 0.04);
+      border: 1px solid var(--blue-light);
+      border-left: 6px solid var(--berkeley-gold);
+      transition: box-shadow 0.2s, border-left-color 0.2s;
+    }
+
+    .exp-item:hover {
+      box-shadow: 0 10px 24px rgba(0, 50, 98, 0.10);
+      border-left-color: var(--berkeley-blue);
+    }
+
+    .exp-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+    }
+
+    .exp-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--berkeley-blue);
+      letter-spacing: -0.01em;
+    }
+
+    .exp-company {
+      font-weight: 600;
+      color: var(--blue-mid);
+    }
+
+    .exp-date {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--berkeley-blue);
+      background: var(--gold-light);
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      border: 1px solid #f0d580;
+    }
+
+    .exp-desc {
+      color: #1e3a5f;
+      font-size: 0.98rem;
+    }
+
+    .exp-desc ul {
+      margin-left: 1.2rem;
+      margin-top: 0.5rem;
+      color: #1f4665;
+    }
+
+    .exp-desc li {
+      margin-bottom: 0.3rem;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      border-top: 2px solid var(--berkeley-blue);
+      padding: 2rem 0 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: var(--blue-mid);
+      position: relative;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: 0;
+      width: 80px;
+      height: 2px;
+      background: var(--berkeley-gold);
+    }
+
+    footer .footer-note {
+      font-weight: 400;
+    }
+
+    footer .footer-address {
+      font-style: normal;
+      font-weight: 400;
+      color: var(--blue-mid);
+    }
+
+    footer .footer-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    footer .footer-links a {
+      text-decoration: none;
+      color: var(--berkeley-blue);
+      font-weight: 500;
+      border-bottom: 1px dotted transparent;
+    }
+
+    footer .footer-links a:hover {
+      border-bottom-color: var(--berkeley-gold);
+      color: #002a4e;
+    }
+
+    /* responsive */
+    @media (max-width: 700px) {
+      body {
+        padding: 1rem;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+      }
+
+      .nav-links {
+        gap: 1.2rem;
+        flex-wrap: wrap;
+      }
+
+      .about-avatar {
+        flex: 0 0 120px;
+      }
+
+      .about-avatar img {
+        width: 120px;
+        height: 120px;
+      }
+
+      .exp-header,
+      .edu-header {
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header>
+    <nav>
+      <span class="nav-name">Chesley Guo <span>AI · Data</span></span>
+      <ul class="nav-links">
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="https://github.com/chesleyguo" target="_blank" rel="noopener">GitHub ↗</a></li>
+        <li><a href="https://linkedin.com/in/jg1023" target="_blank" rel="noopener">LinkedIn ↗</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ========== MAIN ========== -->
+  <main>
+
+    <!-- ---------- ABOUT ME SECTION ---------- -->
+    <section id="about">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-grid">
+        <figure class="about-avatar">
+          <img 
+            src="headshot.jpg" 
+            alt="Chesley Guo headshot"
+            loading="lazy"
+            onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Chesley+Guo&background=003262&color=FDB515&size=180&font-size=0.5&bold=true';"
+          >
+        </figure>
+        <article class="about-text">
+          <p>
+            I’m an <strong>AI & data analytics engineer</strong> with a Master of Engineering in Development Engineering 
+            (AI/Data Analytics track) at <strong>UC Berkeley</strong> and a BSc in Information Sciences from <strong>UIUC</strong>. 
+            My work bridges large language models, product strategy, and global health analytics.
+          </p>
+          <p>
+            Outside of work, I’m an avid fan of <strong>single-player RPG games</strong> and 
+            <strong>mystery novels</strong> — I love getting lost in rich narratives and clever puzzles.
+          </p>
+          <ul class="highlight-list">
+            <li>LLM evaluation</li>
+            <li>Product strategy</li>
+            <li>Data science for health</li>
+            <li>Multimodal AI</li>
+            <li>Growth marketing</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ---------- EDUCATION SECTION ---------- -->
+    <section id="education">
+      <h2 class="section-title">Education</h2>
+      <div class="edu-list">
+
+        <article class="edu-item">
+          <header class="edu-header">
+            <span class="edu-school">University of California, Berkeley</span>
+            <time class="edu-date" datetime="2026">Class of 2026</time>
+          </header>
+          <p class="edu-degree">Master of Engineering (MEng) in Development Engineering</p>
+          <p class="edu-detail">AI/Data Analytics Track · GPA: 3.88</p>
+        </article>
+
+        <article class="edu-item">
+          <header class="edu-header">
+            <span class="edu-school">University of Illinois at Urbana-Champaign</span>
+            <time class="edu-date" datetime="2024">Class of 2024</time>
+          </header>
+          <p class="edu-degree">Bachelor of Science (BSc) in Information Sciences</p>
+          <p class="edu-detail">Data Science Track · GPA: 3.91</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ---------- WORK EXPERIENCE SECTION ---------- -->
+    <section id="experience">
+      <h2 class="section-title">Working Experience</h2>
+      <div class="exp-list">
+
+        <article class="exp-item">
+          <header class="exp-header">
+            <span class="exp-title">Product Manager Intern</span>
+            <span class="exp-company">Tencent · RTC</span>
+            <time class="exp-date" datetime="2025-05">May – Aug 2025</time>
+          </header>
+          <div class="exp-desc">
+            <ul>
+              <li>Led feature improvements across Conversational AI, Live Streaming, and In‑game Voice Chat using data analytics.</li>
+              <li>Spearheaded LinkedIn/TikTok campaigns; hosted webinars for 800+ developers and startups.</li>
+              <li>Built KOL network of 100+ affiliates, lifting conversion rates through A/B tested content.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="exp-item">
+          <header class="exp-header">
+            <span class="exp-title">AI Strategy Product Manager Intern</span>
+            <span class="exp-company">TikTok</span>
+            <time class="exp-date" datetime="2024-11">Nov 2024 – Jan 2025</time>
+          </header>
+          <div class="exp-desc">
+            <ul>
+              <li>Improved video content understanding & text generation LLMs, reducing hallucination.</li>
+              <li>Defined evaluation metrics (accuracy, semantic relevance, logical reasoning) and wrote PRDs.</li>
+              <li>Coordinated algorithm, data, and infra teams for scalable model training.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="exp-item">
+          <header class="exp-header">
+            <span class="exp-title">Financial Planning & Analysis Intern</span>
+            <span class="exp-company">CSC Financial</span>
+            <time class="exp-date" datetime="2023-07">Jul – Aug 2023</time>
+          </header>
+          <div class="exp-desc">
+            <ul>
+              <li>Built financial models and competitor analyses presented to senior management.</li>
+              <li>Enhanced forecasting accuracy and supported strategic planning.</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <p class="footer-note">© 2026 Chesley Guo · AI & Data Portfolio</p>
+    <address class="footer-address">2100 Channing Way, Berkeley, 94704</address>
+    <ul class="footer-links">
+      <li><a href="#about">About Me</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="https://github.com/chesleyguo" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>
